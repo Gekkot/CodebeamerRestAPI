@@ -1,4 +1,4 @@
-package com.gekkot;
+package com.gekkot.cb;
 
 import com.gekkot.cb.params.ApiParams;
 import com.gekkot.cb.rest.ApiClient;
