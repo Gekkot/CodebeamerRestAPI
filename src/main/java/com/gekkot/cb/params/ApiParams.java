@@ -8,6 +8,9 @@ public class ApiParams {
     private int connectTimeoutSeconds = 10;
     private int callTimeoutSeconds = 30;
 
+    private String login;
+    private String password;
+
     public ApiParams(String codeBeamerURL) {
         this.codeBeamerURL = codeBeamerURL;
     }
@@ -50,5 +53,21 @@ public class ApiParams {
 
     public void setCallTimeoutSeconds(int callTimeoutSeconds) {
         this.callTimeoutSeconds = callTimeoutSeconds;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
