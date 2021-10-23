@@ -1,12 +1,18 @@
 package com.gekkot.cb.rest;
 
 import com.gekkot.cb.params.ApiParams;
+import com.gekkot.cb.rest.time.TimeRequest;
+import com.gekkot.cb.rest.user.UserRequest;
+import com.gekkot.cb.rest.version.GetVersionRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import org.apache.commons.codec.Charsets;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +23,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class ApiClient {
 
-    private static String authToken;
     private static ApiClient mApiClient;
     private Retrofit mRetrofit;
 
@@ -30,34 +35,33 @@ public class ApiClient {
 
     private Gson gson = new GsonBuilder().setLenient().create();
 
-    /**
-     * Check token is set.
-     */
-    private boolean checkTokenSet(){
-        return authToken != null && authToken.isEmpty();
-    }
-
 
 
     private ApiClient() {
         if(params == null){
             throw  new RuntimeException("set Api params before creating Api Client");
         }
-       HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+       HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
 
         OkHttpClient.Builder client = new OkHttpClient.Builder()
                 .callTimeout(params.getCallTimeoutSeconds(), TimeUnit.SECONDS)
                 .connectTimeout(params.getConnectTimeoutSeconds(), TimeUnit.SECONDS)
                 .readTimeout(params.getReadTimeoutSeconds(), TimeUnit.SECONDS)
                 .writeTimeout(params.getWriteTimeoutSeconds(), TimeUnit.SECONDS);
-        AuthenticationInterceptor interceptorAuth = checkTokenSet() ? null : new AuthenticationInterceptor(authToken);
+        final String token = "Basic " + Base64.encode((params.getLogin() + ":" + params.getPassword()).getBytes(Charsets.UTF_8));
+        AuthenticationInterceptor interceptorAuth = new AuthenticationInterceptor(token);
 
-        if (interceptorAuth != null && !client.interceptors().contains(interceptorAuth)) {
+        if (!client.interceptors().contains(interceptorAuth)) {
             client.addInterceptor(interceptorAuth);
         }
+
+        //client.addInterceptor(httpLoggingInterceptor);
+
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(params.getCodeBeamerURL())
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client.build())
                 .build();
@@ -68,6 +72,18 @@ public class ApiClient {
             mApiClient = new ApiClient();
         }
         return mApiClient;
+    }
+
+    public GetVersionRequest getVersionRequest() {
+        return mRetrofit.create(GetVersionRequest.class);
+    }
+
+    public UserRequest getUserRequest(){
+        return mRetrofit.create(UserRequest.class);
+    }
+
+    public TimeRequest getTimeRequest(){
+        return mRetrofit.create(TimeRequest.class);
     }
 
 }
