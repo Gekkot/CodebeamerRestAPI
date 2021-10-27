@@ -40,6 +40,22 @@
       <version>2.9.0</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxjava -->
+    <dependency>
+      <groupId>io.reactivex.rxjava2</groupId>
+      <artifactId>rxjava</artifactId>
+      <version>2.2.21</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.squareup.retrofit2/adapter-rxjava2 -->
+    <dependency>
+      <groupId>com.squareup.retrofit2</groupId>
+      <artifactId>adapter-rxjava2</artifactId>
+      <version>2.9.0</version>
+    </dependency>
+
+
+
 
     <!-- https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-gson -->
     <dependency>
