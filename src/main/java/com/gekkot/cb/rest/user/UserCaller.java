@@ -1,10 +1,10 @@
 package com.gekkot.cb.rest.user;
 
 import com.gekkot.cb.rest.ApiClient;
-import com.gekkot.cb.rest.common.BaseCaller;
-import retrofit2.Call;
+import com.gekkot.cb.rest.common.BaseRxCaller;
+import io.reactivex.Observable;
 
-public class UserCaller extends BaseCaller<UserPojo> {
+public class UserCaller extends BaseRxCaller<UserPojo> {
 
 
     private final String userIdOrName;
@@ -13,10 +13,8 @@ public class UserCaller extends BaseCaller<UserPojo> {
         this.userIdOrName = userIdOrName;
     }
 
-
     @Override
-    protected Call<UserPojo> getCall() {
-        return ApiClient.getInstance().getUserRequest().getUser(userIdOrName);
+    protected Observable<UserPojo> getObservable() {
+        return  ApiClient.getInstance().getUserRequest().getUser(userIdOrName);
     }
-
 }
