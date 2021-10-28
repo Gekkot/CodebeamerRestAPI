@@ -70,7 +70,7 @@ public class App {
 
 
 
-      new UserCaller("user_sorokink")
+      new UserCaller(username)
                 .doCall(userPojoResultCallback,dataErrorCallback, networkExceptionCallback);
 
 
