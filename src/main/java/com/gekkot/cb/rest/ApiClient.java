@@ -55,7 +55,7 @@ public class ApiClient {
                 .readTimeout(params.getReadTimeoutSeconds(), TimeUnit.SECONDS)
                 .writeTimeout(params.getWriteTimeoutSeconds(), TimeUnit.SECONDS);
         byte[] tokenBytes = (params.getLogin() + ":" + params.getPassword()).getBytes(Charsets.UTF_8);
-        final String token = "Basic " + Arrays.toString(Base64.getEncoder().encode(tokenBytes));
+        final String token = "Basic " + new String(Base64.getEncoder().encode(tokenBytes));
         AuthenticationInterceptor interceptorAuth = new AuthenticationInterceptor(token);
 
         if (!client.interceptors().contains(interceptorAuth)) {
