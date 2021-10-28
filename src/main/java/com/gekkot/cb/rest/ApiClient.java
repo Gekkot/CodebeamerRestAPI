@@ -62,7 +62,7 @@ public class ApiClient {
             client.addInterceptor(interceptorAuth);
         }
 
-        //client.addInterceptor(httpLoggingInterceptor);
+        client.addInterceptor(httpLoggingInterceptor);
 
         RxJava2CallAdapterFactory rxAdapter =
                 RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io());
