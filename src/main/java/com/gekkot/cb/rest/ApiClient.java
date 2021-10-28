@@ -6,7 +6,9 @@ import com.gekkot.cb.rest.user.UserRequest;
 import com.gekkot.cb.rest.version.GetVersionRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+
+import java.util.Arrays;
+import java.util.Base64;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -52,7 +54,8 @@ public class ApiClient {
                 .connectTimeout(params.getConnectTimeoutSeconds(), TimeUnit.SECONDS)
                 .readTimeout(params.getReadTimeoutSeconds(), TimeUnit.SECONDS)
                 .writeTimeout(params.getWriteTimeoutSeconds(), TimeUnit.SECONDS);
-        final String token = "Basic " + Base64.encode((params.getLogin() + ":" + params.getPassword()).getBytes(Charsets.UTF_8));
+        byte[] tokenBytes = (params.getLogin() + ":" + params.getPassword()).getBytes(Charsets.UTF_8);
+        final String token = "Basic " + Arrays.toString(Base64.getEncoder().encode(tokenBytes));
         AuthenticationInterceptor interceptorAuth = new AuthenticationInterceptor(token);
 
         if (!client.interceptors().contains(interceptorAuth)) {
