@@ -1,7 +1,7 @@
 package com.gekkot.cb.rest.user;
 
 import com.gekkot.cb.rest.ApiClient;
-import com.gekkot.cb.rest.common.BaseRxCaller;
+import com.gekkot.cb.rest.common.callers.BaseRxCaller;
 import io.reactivex.Observable;
 
 public class UserCaller extends BaseRxCaller<UserPojo> {

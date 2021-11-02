@@ -1,4 +1,4 @@
-package com.gekkot.cb.rest.common;
+package com.gekkot.cb.rest.common.callers;
 
 /**
  * Base caller generic.

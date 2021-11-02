@@ -1,4 +1,4 @@
-package com.gekkot.cb.rest.common;
+package com.gekkot.cb.rest.common.callers;
 
 import com.gekkot.cb.rest.common.callback.IDataErrorCallback;
 import com.gekkot.cb.rest.common.callback.INetworkExceptionCallback;
