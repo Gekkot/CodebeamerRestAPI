@@ -15,11 +15,12 @@ import java.io.IOException;
  * @param <ResponseType> server response type
  * @param <DataType> returning type
  */
-public abstract class StructuredCaller<ResponseType, DataType> {
+public abstract class StructuredCaller<ResponseType, DataType> implements ICaller<DataType>{
 
     protected abstract Call<ResponseType> getCall();
     protected abstract DataType getAnswer(ResponseType responseType);
 
+    @Override
     public void doCall(IResultCallback<DataType> resultCallback,
                        IDataErrorCallback dataErrorCallback,
                        INetworkExceptionCallback networkExceptionCallback) {

@@ -15,12 +15,13 @@ import java.io.IOException;
  * @param <ResponseType> server response type
  * @param <DataType> returning type
  */
-public abstract class StructuredRXCaller<ResponseType, DataType> {
+public abstract class StructuredRXCaller<ResponseType, DataType> implements ICaller<DataType>{
 
     protected abstract Observable<ResponseType> getObservable();
 
     protected abstract DataType getAnswer(ResponseType responseType);
 
+    @Override
     public void doCall(IResultCallback<DataType> resultCallback,
                        IDataErrorCallback dataErrorCallback,
                        INetworkExceptionCallback networkExceptionCallback) {
