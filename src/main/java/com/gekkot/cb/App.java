@@ -5,12 +5,17 @@ import com.gekkot.cb.rest.ApiClient;
 import com.gekkot.cb.rest.common.callback.IDataErrorCallback;
 import com.gekkot.cb.rest.common.callback.INetworkExceptionCallback;
 import com.gekkot.cb.rest.common.callback.IResultCallback;
+import com.gekkot.cb.rest.projects.ProjectCaller;
+import com.gekkot.cb.rest.projects.ProjectShortInfoPojo;
 import com.gekkot.cb.rest.time.TimeCaller;
 import com.gekkot.cb.rest.time.TimePojo;
 import com.gekkot.cb.rest.user.UserCaller;
 import com.gekkot.cb.rest.user.UserPojo;
 import com.gekkot.cb.rest.version.VersionCaller;
 import org.apache.commons.cli.*;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Hello world!
@@ -79,6 +84,10 @@ public class App {
 
 
         new TimeCaller().doCall(timePojoResultCallback, dataErrorCallback, networkExceptionCallback);
+
+        IResultCallback<List<ProjectShortInfoPojo>> resultCallback = value -> System.out.println(value.size());
+
+        new ProjectCaller().doCall(resultCallback,dataErrorCallback,networkExceptionCallback);
 
 
     }
