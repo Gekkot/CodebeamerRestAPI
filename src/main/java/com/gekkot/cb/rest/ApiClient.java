@@ -1,6 +1,7 @@
 package com.gekkot.cb.rest;
 
 import com.gekkot.cb.params.ApiParams;
+import com.gekkot.cb.rest.projects.ProjectListRequest;
 import com.gekkot.cb.rest.time.TimeRequest;
 import com.gekkot.cb.rest.user.UserRequest;
 import com.gekkot.cb.rest.version.GetVersionRequest;
@@ -93,6 +94,10 @@ public class ApiClient {
 
     public TimeRequest getTimeRequest(){
         return mRetrofit.create(TimeRequest.class);
+    }
+
+    public ProjectListRequest getProjectsRequest(){
+        return mRetrofit.create(ProjectListRequest.class);
     }
 
 }
